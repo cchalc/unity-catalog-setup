@@ -32,12 +32,12 @@
 -- COMMAND ----------
 
 --- create a new catalog
-CREATE CATALOG IF NOT EXISTS quickstart_catalog
+CREATE CATALOG IF NOT EXISTS cchalc_quickstart_catalog
 
 -- COMMAND ----------
 
 -- Set the current catalog
-USE CATALOG quickstart_catalog
+USE CATALOG cchalc_quickstart_catalog
 
 -- COMMAND ----------
 
@@ -49,12 +49,12 @@ SHOW CATALOGS
 --- grant create & usage permissions to all users on the account
 --- this also works for other account-level groups and individual users
 GRANT CREATE,
-USAGE on CATALOG quickstart_catalog TO `account users`
+USAGE on CATALOG cchalc_quickstart_catalog TO `account users`
 
 -- COMMAND ----------
 
 --- check that the grants are correct on the quickstart catalog
-SHOW GRANT on CATALOG quickstart_catalog
+SHOW GRANT on CATALOG cchalc_quickstart_catalog
 
 -- COMMAND ----------
 
@@ -65,7 +65,7 @@ SHOW GRANT on CATALOG quickstart_catalog
 -- COMMAND ----------
 
 --- create a new schema under the quick start catalog
-CREATE SCHEMA IF NOT EXISTS quickstart_database COMMENT "A new Unity Catalog schema called quickstart_database"
+CREATE SCHEMA IF NOT EXISTS cchalc_quickstart_database COMMENT "A new Unity Catalog schema called quickstart_database"
 
 -- COMMAND ----------
 
@@ -75,7 +75,7 @@ SHOW SCHEMAS
 -- COMMAND ----------
 
 -- Describe the new schema
-DESCRIBE SCHEMA EXTENDED quickstart_database
+DESCRIBE SCHEMA EXTENDED cchalc_quickstart_database
 
 -- COMMAND ----------
 
@@ -92,14 +92,14 @@ DESCRIBE SCHEMA EXTENDED quickstart_database
 -- COMMAND ----------
 
 -- Set the current schema
-USE quickstart_database
+USE cchalc_quickstart_database
 
 -- COMMAND ----------
 
 -- Create managed Delta table
-CREATE TABLE IF NOT EXISTS quickstart_table (columnA Int, columnB String) PARTITIONED BY (columnA);
+CREATE TABLE IF NOT EXISTS cchalc_quickstart_table (columnA Int, columnB String) PARTITIONED BY (columnA);
 INSERT INTO
-  TABLE quickstart_table
+  TABLE cchalc_quickstart_table
 VALUES
   (1, "one"),
   (2, "two")
@@ -107,12 +107,12 @@ VALUES
 -- COMMAND ----------
 
 -- View all tables in the schema
-SHOW TABLES IN quickstart_database
+SHOW TABLES IN cchalc_quickstart_database
 
 -- COMMAND ----------
 
 -- Describe this table
-DESCRIBE TABLE EXTENDED quickstart_table
+DESCRIBE TABLE EXTENDED cchalc_quickstart_table
 
 -- COMMAND ----------
 
@@ -131,26 +131,26 @@ DESCRIBE TABLE EXTENDED quickstart_table
 SELECT
   *
 FROM
-  quickstart_catalog.quickstart_database.quickstart_table
+  cchalc_quickstart_catalog.cchalc_quickstart_database.cchalc_quickstart_table
 
 -- COMMAND ----------
 
 -- Set the default catalog and query the table using the schema and table name
-USE CATALOG quickstart_catalog;
+USE CATALOG cchalc_quickstart_catalog;
 SELECT
   *
 FROM
-  quickstart_database.quickstart_table
+  cchalc_quickstart_database.cchalc_quickstart_table
 
 -- COMMAND ----------
 
 -- Set the default catalog and default schema and query the table using the table name
-USE CATALOG quickstart_catalog;
-USE quickstart_database;
+USE CATALOG cchalc_quickstart_catalog;
+USE cchalc_quickstart_database;
 SELECT
   *
 FROM
-  quickstart_table
+  cchalc_quickstart_table
 
 -- COMMAND ----------
 
@@ -164,8 +164,8 @@ FROM
 
 -- COMMAND ----------
 
-USE CATALOG quickstart_catalog;
-CREATE TABLE IF NOT EXISTS quickstart_database.city_data (
+USE CATALOG cchalc_quickstart_catalog;
+CREATE TABLE IF NOT EXISTS cchalc_quickstart_database.city_data (
   rankIn2016 INT,
   state STRING,
   stateAbbrev STRING,
@@ -176,7 +176,7 @@ CREATE TABLE IF NOT EXISTS quickstart_database.city_data (
 SELECT
   *
 FROM
-  quickstart_database.city_data;
+  cchalc_quickstart_database.city_data;
 
 -- COMMAND ----------
 
@@ -203,8 +203,8 @@ DROP TABLE quickstart_database.city_data
 
 -- COMMAND ----------
 
-USE CATALOG quickstart_catalog;
-CREATE TABLE quickstart_database.migrated_table AS
+USE CATALOG cchalc_quickstart_catalog;
+CREATE TABLE cchalc_quickstart_database.migrated_table AS
 SELECT
   *
 FROM
@@ -292,15 +292,19 @@ DROP TABLE default.external_table
 
 -- COMMAND ----------
 
+USE CATALOG cchalc_quickstart_catalog;
+
+-- COMMAND ----------
+
 -- Privileges can be granted to Schemas
-GRANT USAGE ON SCHEMA quickstart_database TO `account users`
+GRANT USAGE ON SCHEMA cchalc_quickstart_database TO `account users`
 
 -- COMMAND ----------
 
 -- Grants read privilege on the table to a principal
 GRANT
 SELECT
-  ON TABLE quickstart_database.quickstart_table TO `account users`
+  ON TABLE cchalc_quickstart_database.cchalc_quickstart_table TO `account users`
 
 -- COMMAND ----------
 
@@ -310,11 +314,11 @@ SELECT
 -- COMMAND ----------
 
 -- Lists all privileges that are granted on a securable
-SHOW GRANTS ON TABLE quickstart_catalog.quickstart_database.quickstart_table
+SHOW GRANTS ON TABLE cchalc_quickstart_catalog.cchalc_quickstart_database.cchalc_quickstart_table
 
 -- COMMAND ----------
 
-SHOW GRANTS ON SCHEMA quickstart_catalog.quickstart_database
+SHOW GRANTS ON SCHEMA cchalc_quickstart_catalog.cchalc_quickstart_database
 
 -- COMMAND ----------
 
